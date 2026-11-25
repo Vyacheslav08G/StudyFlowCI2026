@@ -1,7 +1,7 @@
 # StudyFlow — автоматизированный планировщик учебной нагрузки
 
-![Quality CI](https://github.com/Vyacheslav08G/-/actions/workflows/01-quality.yml/badge.svg)
-![Project CI](https://github.com/Vyacheslav08G/-/actions/workflows/02-project.yml/badge.svg)
+![Quality CI](https://github.com/Vyacheslav08G/StudyFlowCI2026/actions/workflows/01-quality.yml/badge.svg)
+![Project CI](https://github.com/Vyacheslav08G/StudyFlowCI2026/actions/workflows/02-project.yml/badge.svg)
 
 Итоговый проект AI Engineering Lab 2026. StudyFlow помогает оценить, сколько времени необходимо на учебные задания, что можно успеть до дедлайна и где возникает риск просрочки. Из CSV программа строит календарь нагрузки, автономный HTML-дашборд и JSON для дальнейшей обработки.
 
@@ -51,7 +51,7 @@ CSV + результат -> verify_report (независимый пересчё
 | [Quality CI](.github/workflows/01-quality.yml) | push, pull_request, ручной запуск | Компиляция, 16 функциональных тестов, проверка CSV, генерация и независимая проверка результата на Python 3.12/3.13 | Логи каждого шага |
 | [Project CI](.github/workflows/02-project.yml) | push в main, ручной запуск | Генерирует план с выбранными параметрами и проверяет его | Артефакт studyflow-report с HTML и JSON, итог в Job Summary |
 
-В [Actions](https://github.com/Vyacheslav08G/-/actions) выберите запуск. Для Project CI откройте Artifacts, скачайте studyflow-report (хранение 30 дней) и распакуйте архив. Для нового расчёта нажмите Run workflow и задайте параметры. Ошибки не подавляются: неверный ввод или нарушение инварианта завершает команду ненулевым кодом.
+В [Actions](https://github.com/Vyacheslav08G/StudyFlowCI2026/actions) выберите запуск. Для Project CI откройте Artifacts, скачайте studyflow-report (хранение 30 дней) и распакуйте архив. Для нового расчёта нажмите Run workflow и задайте параметры. Ошибки не подавляются: неверный ввод или нарушение инварианта завершает команду ненулевым кодом.
 
 ## Демонстрация
 
