@@ -2,10 +2,16 @@
 
 Проект StudyFlow — автоматизированный планировщик учебной нагрузки.
 
-- Репозиторий: https://github.com/Vyacheslav08G/-
-- [Quality CI — конфигурация](.github/workflows/01-quality.yml) · [запуски](https://github.com/Vyacheslav08G/-/actions/workflows/01-quality.yml)
-- [Project CI — конфигурация](.github/workflows/02-project.yml) · [запуски](https://github.com/Vyacheslav08G/-/actions/workflows/02-project.yml)
-- Результат Project CI: артефакт studyflow-report, файлы index.html и plan.json. Доступен в Artifacts на странице успешного запуска.
-- [README](README.md) · [декларация ИИ](AI_MODELS.md)
+- [Репозиторий](https://github.com/Vyacheslav08G/-), ветка main.
+- [Проверенная версия исходного кода](https://github.com/Vyacheslav08G/-/commit/b1ccf8ae4c60981ead8c9226a665b3227f67dd64).
+- [Quality CI — конфигурация](.github/workflows/01-quality.yml) · [успешный запуск №45654598127](https://github.com/Vyacheslav08G/-/actions/runs/45654598127). Все шаги на Python 3.12 и 3.13 завершены успешно.
+- [Project CI — конфигурация](.github/workflows/02-project.yml) · [успешный запуск №45654597756](https://github.com/Vyacheslav08G/-/actions/runs/45654597756). Генерация, независимая проверка и публикация отчёта завершены успешно.
+- [Артефакт studyflow-report](https://github.com/Vyacheslav08G/-/actions/runs/45654597756/artifacts/15042096337) — HTML-дашборд index.html и машиночитаемый plan.json. Скачать можно после входа в GitHub; срок хранения до 25 декабря 2026 года. При необходимости запустить Project CI заново.
+- [README](README.md) — задача, архитектура, запуск и ограничения.
+- [AI_MODELS](AI_MODELS.md) — декларация использования ИИ.
 
-Статус: локальная проверка прошла. Конкретные успешные запуски и ссылку на результат необходимо подтвердить и добавить до сдачи в Moodle.
+## Результаты
+
+На синтетическом наборе 8 задач: 1 уже выполнена; из 960 минут оставшейся работы 840 распределены по 7 дням, 120 не помещаются в горизонт, 60 запланированы после дедлайна. Локально 16 тестов прошли. Оба удалённых workflow завершились успешно на указанной версии кода. После этих запусков обновлена только навигация в SUBMISSION.md, программный код и конфигурации не изменены.
+
+Перед отправкой в Moodle студенту следует ознакомиться с реализацией, проверить доступ к отчёту и убедиться в соответствии требованиям самостоятельного вклада.
