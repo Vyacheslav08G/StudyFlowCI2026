@@ -1,0 +1,59 @@
+name: Project CI — StudyFlow report
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      start:
+        description: 'Start date (YYYY-MM-DD)'
+        default: '2026-11-25'
+        required: true
+        type: string
+      days:
+        description: 'Planning horizon (1–90 days)'
+        default: '7'
+        required: true
+        type: string
+      capacity:
+        description: 'Study minutes per day (1–1440)'
+        default: '120'
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate planning report
+        env:
+          START: ${{ inputs.start || '2026-11-25' }}
+          DAYS: ${{ inputs.days || '7' }}
+          CAPACITY: ${{ inputs.capacity || '120' }}
+        run: python -m studyflow report --input data/tasks.csv --start "$START" --days "$DAYS" --capacity "$CAPACITY" --output dist
+      - name: Verify generated result against input
+        run: python -m scripts.verify_report --input data/tasks.csv --output dist
+      - name: Upload downloadable HTML and JSON report
+        uses: actions/upload-artifact@v4
+        with:
+          name: studyflow-report
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Summarize report
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          p = json.loads(Path('dist/plan.json').read_text())
+          print('## StudyFlow report')
+          print(f"- Start: {p['start']}; days: {p['days']}")
+          print(f"- Tasks: {p['total_tasks']}; completed: {p['completed_tasks']}")
+          print(f"- Scheduled: {p['scheduled_minutes']} min; unscheduled: {p['unscheduled_minutes']} min; late: {p['late_minutes']} min")
+          print('- Download **studyflow-report** from Artifacts; open index.html or inspect plan.json.')
+          PY

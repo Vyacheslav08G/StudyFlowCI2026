@@ -1,0 +1,30 @@
+name: Quality CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Compile Python source
+        run: python -m compileall -q studyflow tests scripts
+      - name: Unit and integration tests with diagnostics
+        run: python -m unittest discover -s tests -v
+      - name: Validate real input dataset
+        run: python -m studyflow validate --input data/tasks.csv
+      - name: Generate report and independently verify accounting
+        run: |
+          python -m studyflow report --input data/tasks.csv --start 2026-11-25 --days 7 --capacity 120 --output quality-output
+          python -m scripts.verify_report --input data/tasks.csv --output quality-output
